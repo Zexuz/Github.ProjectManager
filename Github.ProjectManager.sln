@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Github.ProjectManager.Runner", "Github.ProjectManager.Runner\Github.ProjectManager.Runner.csproj", "{C8674DBF-6A12-46E1-A475-37DDBBAB1588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Github.ProjectManager.Application", "Github.ProjectManager.Application\Github.ProjectManager.Application.csproj", "{27C066D4-A939-4E82-856D-16BD10792C7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubProjectManager.Core", "GithubProjectManager.Core\GithubProjectManager.Core.csproj", "{D86D654F-8FE9-4895-A1E5-762F48601747}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8674DBF-6A12-46E1-A475-37DDBBAB1588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8674DBF-6A12-46E1-A475-37DDBBAB1588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8674DBF-6A12-46E1-A475-37DDBBAB1588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8674DBF-6A12-46E1-A475-37DDBBAB1588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C066D4-A939-4E82-856D-16BD10792C7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C066D4-A939-4E82-856D-16BD10792C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C066D4-A939-4E82-856D-16BD10792C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C066D4-A939-4E82-856D-16BD10792C7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D86D654F-8FE9-4895-A1E5-762F48601747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D86D654F-8FE9-4895-A1E5-762F48601747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D86D654F-8FE9-4895-A1E5-762F48601747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D86D654F-8FE9-4895-A1E5-762F48601747}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
