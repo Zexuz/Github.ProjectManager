@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Autofac;
-using GithubProjectManager.Core;
+using GithubProjectManager.Core.Api;
+using GithubProjectManager.Core.IoC;
+using GithubProjectManager.Core.Services;
 using Microsoft.Extensions.Configuration;
+using Refit;
 
 namespace Github.ProjectManager.Application
 {
@@ -24,8 +27,8 @@ namespace Github.ProjectManager.Application
 
         public async Task Start()
         {
-//            var jobManager = Container.Resolve<JobManager>();
-//            await jobManager.StartJobs();
+            var githubService = Container.Resolve<GithubService>();
+            await githubService.RemoveOldCards();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Github.ProjectManager.Runner
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false);
+                .AddJsonFile("appsetting.json", false);
 
             var configuration = builder.Build();
 

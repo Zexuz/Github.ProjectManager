@@ -15,7 +15,7 @@ namespace GithubProjectManager.Core.Resources
         public Uri CardsUrl { get; set; }
 
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("node_id")]
         public string NodeId { get; set; }

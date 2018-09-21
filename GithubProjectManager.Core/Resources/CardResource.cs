@@ -9,7 +9,7 @@ namespace GithubProjectManager.Core.Resources
         public Uri Url { get; set; }
 
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("node_id")]
         public string NodeId { get; set; }
@@ -21,10 +21,10 @@ namespace GithubProjectManager.Core.Resources
         public CreatorResource CreatorResource { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]
-        public string UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         [JsonProperty("archived")]
         public bool Archived { get; set; }
