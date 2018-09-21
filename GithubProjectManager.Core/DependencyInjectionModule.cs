@@ -1,7 +1,8 @@
 ﻿using Autofac.Core;
 using Microsoft.Extensions.Configuration;
+using Autofac.Features;
 
-namespace GithubProjectManager.Core
+namespace GithubProjectManager.Core.Random
 {
     public class DependencyInjectionModule : IModule
     {

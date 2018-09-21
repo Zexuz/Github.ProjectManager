@@ -2,7 +2,7 @@
 using GithubProjectManager.Core.Resources;
 using Refit;
 
-namespace GithubProjectManager.Core
+namespace GithubProjectManager.Core.Api
 {
     public interface IGithubProjectCards
     {
