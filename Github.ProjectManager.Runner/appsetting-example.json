@@ -1,0 +1,19 @@
+{
+  "Github": {
+    "Token": "Token",
+    "BaseUrl": "https://api.github.com",
+    "Repositories": [
+      {
+        "Owner": "ownerName",
+        "Name": "RepoName",
+        "Projects": [
+          {
+            "Name": "projectname",
+            "MaxDaysInDoneColumn": 30,
+            "DoneColumnName": "Done"
+          }
+        ]
+      }
+    ]
+  }
+}

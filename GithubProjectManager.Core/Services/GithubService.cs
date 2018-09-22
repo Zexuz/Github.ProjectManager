@@ -2,54 +2,68 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using GithubProjectManager.Core.Api;
-using Microsoft.Extensions.Configuration;
+using GithubProjectManager.Core.Models;
+using GithubProjectManager.Core.Resources;
 
 namespace GithubProjectManager.Core.Services
 {
     public class GithubService
     {
         private readonly GithubClientFactory _githubClientFactory;
-        private readonly IConfiguration      _configuration;
+        private readonly GithubConfiguration _configuration;
 
-        public GithubService(GithubClientFactory githubClientFactory, IConfiguration configuration)
+        public GithubService(GithubClientFactory githubClientFactory, GithubConfiguration configuration)
         {
             _githubClientFactory = githubClientFactory;
             _configuration = configuration;
         }
 
-        public async Task RemoveOldCards()
+        public async Task ArchiveOldCards()
         {
-            var ownerName = _configuration[ConfigurationConstants.RepoOwner];
-            var repoName = _configuration[ConfigurationConstants.RepoName];
-
-            var projectName = _configuration[ConfigurationConstants.ProjectName];
-
-            var doneColumnName = _configuration[ConfigurationConstants.DoneColumnName];
-
-            var maxTimeInDoneColumn = TimeSpan.FromDays(int.Parse(_configuration[ConfigurationConstants.MaxDaysInDoneColumn]));
-
-
             var githubClient = _githubClientFactory.Create();
 
-            var projects = await githubClient.GetProjects(ownerName, repoName);
-
-            var project = projects.First(p => p.Name.Trim() == projectName.Trim());
-
-            var columns = await githubClient.GetColumns(project.Id);
-
-            var doneColumn = columns.First(column => column.Name == doneColumnName);
-
-            var cards = await githubClient.GetCards(doneColumn.Id);
-
-            foreach (var card in cards)
+            foreach (var githubRepository in _configuration.Repositories)
             {
-                var lastUpdated = card.UpdatedAt.ToUniversalTime();
-                if (card.Archived) continue;
-                if (DateTimeOffset.Now.ToUniversalTime() - lastUpdated < maxTimeInDoneColumn) continue;
+                var projects = await githubClient.GetProjects(githubRepository.Owner, githubRepository.Name);
 
-               var response  = await githubClient.UpdateCard(card.Id,new CardPostData{Archived= true});
-                Console.WriteLine($"Archived card: \n{card.Note}" );
+                foreach (var project in githubRepository.Projects)
+                {
+                    var projectId = GetProjectId(projects, project);
+
+                    var column = await GetColumn(githubClient, projectId, project);
+
+                    var cards = await githubClient.GetCards(column.Id);
+
+                    foreach (var card in cards)
+                    {
+                        if (!ShouldArchiveCard(card, project)) continue;
+
+                        await githubClient.UpdateCard(card.Id, new CardPostData {Archived = true});
+                    }
+                }
             }
+        }
+
+        private static bool ShouldArchiveCard(CardResource card, GithubProject project)
+        {
+            var lastUpdated = card.UpdatedAt.ToUniversalTime();
+            if (card.Archived) return false;
+            if (DateTimeOffset.Now.ToUniversalTime() - lastUpdated < TimeSpan.FromDays(project.MaxDaysInDoneColumn)) return false;
+            return true;
+        }
+
+        private static int GetProjectId(ProjectResource[] projects, GithubProject project)
+        {
+            var projectId = projects.First(resource => resource.Name.Trim() == project.Name).Id;
+            return projectId;
+        }
+
+        private static async Task<ColumnsResource> GetColumn(IGithubApi githubClient, int projectId, GithubProject project)
+        {
+            var columns = await githubClient.GetColumns(projectId);
+
+            var doneColumn = columns.First(column => column.Name == project.DoneColumnName);
+            return doneColumn;
         }
     }
 }

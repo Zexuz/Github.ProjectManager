@@ -28,7 +28,7 @@ namespace Github.ProjectManager.Application
         public async Task Start()
         {
             var githubService = Container.Resolve<GithubService>();
-            await githubService.RemoveOldCards();
+            await githubService.ArchiveOldCards();
         }
     }
 }
